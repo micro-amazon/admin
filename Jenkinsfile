@@ -1,33 +1,34 @@
 pipeline {
-  agent any
+  agent {
+      kubernetes {
+        yaml '''
+          apiVersion: v1
+          kind: Pod
+          spec:
+            containers:
+            - name: docker
+              image: docker:1.11
+              command: ['cat']
+              tty: true
+              volumeMounts:
+              - name: dockersock
+                mountPath: /var/run/docker.sock
+            volumes:
+            - name: dockersock
+              hostPath:
+                path: /var/run/docker.sock
+        '''
+      }
+    }
   stages {
     stage('git scm update') {
       steps {
-        git url: 'https://github.com/micro-amazon/admin.git', branch: 'main'
+        container('docker') {
+          git url: 'https://github.com/micro-amazon/admin.git', branch: 'main'
+        }
       }
     }
     stage('docker build and push') {
-      agent {
-        kubernetes {
-          yaml '''
-            apiVersion: v1
-            kind: Pod
-            spec:
-              containers:
-              - name: docker
-                image: docker:1.11
-                command: ['cat']
-                tty: true
-                volumeMounts:
-                - name: dockersock
-                  mountPath: /var/run/docker.sock
-              volumes:
-              - name: dockersock
-                hostPath:
-                  path: /var/run/docker.sock
-          '''
-        }
-      }
       steps {
         container('docker') {
           sh '''
