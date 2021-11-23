@@ -31,10 +31,15 @@ pipeline {
     stage('docker build and push') {
       steps {
         container('docker') {
+          withCredentials([usernamePassword(
+                    credentialsId: 'docker_hub_auth',
+                    usernameVariable: 'USERNAME',
+                    passwordVariable: 'PASSWORD')])
           sh '''
-          docker build -t mini-amazon-admin/admin .
-          docker push zwan2/mini-amazon-admin:admin
+          docker build -t zwan2/mini-amazon-admin .
+          docker push zwan2/mini-amazon-admin
           '''
+          
         }
       }
     }
