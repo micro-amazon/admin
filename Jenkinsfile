@@ -17,9 +17,12 @@ pipeline {
             - name: dockersock
               hostPath:
                 path: /var/run/docker.sock
-        '''
-      }
+      '''
     }
+  }
+  environment {
+    DOCKER_HUB_AUTH = credentials('DOCKER_HUB_AUTH') // it is set by jenkins credentials
+  }  
   stages {
     stage('git scm update') {
       steps {
@@ -31,15 +34,11 @@ pipeline {
     stage('docker build and push') {
       steps {
         container('docker') {
-          withCredentials([usernamePassword(
-                    credentialsId: 'docker_hub_auth',
-                    usernameVariable: 'USERNAME',
-                    passwordVariable: 'PASSWORD')])
           sh '''
+          docker login -u ${DOCKER_HUB_AUTH_USR} -p ${DOCKER_HUB_AUTH_PSW}
           docker build -t zwan2/mini-amazon-admin .
           docker push zwan2/mini-amazon-admin
           '''
-          
         }
       }
     }
