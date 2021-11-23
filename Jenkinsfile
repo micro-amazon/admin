@@ -7,11 +7,34 @@ pipeline {
       }
     }
     stage('docker build and push') {
+      agent {
+        kubernetes {
+          yaml '''
+            apiVersion: v1
+            kind: Pod
+            spec:
+              containers:
+              - name: docker
+                image: docker:1.11
+                command: ['cat']
+                tty: true
+                volumeMounts:
+                - name: dockersock
+                  mountPath: /var/run/docker.sock
+              volumes:
+              - name: dockersock
+                hostPath:
+                  path: /var/run/docker.sock
+          '''
+        }
+      }
       steps {
-        sh '''
-        docker build -t mini-amazon-admin/admin .
-        docker push zwan2/mini-amazon-admin:admin
-        '''
+        container('docker') {
+          sh '''
+          docker build -t mini-amazon-admin/admin .
+          docker push zwan2/mini-amazon-admin:admin
+          '''
+        }
       }
     }
     stage('deploy kubernetes') {
