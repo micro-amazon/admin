@@ -44,11 +44,13 @@ pipeline {
     }
     stage('deploy kubernetes') {
       steps {
-        sh '''
-        kubectl create deployment admin-prod --image=zwan2/mini-amazon-admin:admin
-        kubectl expose deployment admin-prod --type=LoadBalancer --port=8080 \
-                                               --target-port=80 --name=pl-admin-prod-svc
-        '''
+        withKubeConfig([credentialsId: 'jenkins-robot-token', serverUrl: 'https://192.168.49.2:8443', namespace: 'sock-shop']) {
+          sh '''
+          kubectl create deployment admin-prod --image=zwan2/mini-amazon-admin:admin
+          kubectl expose deployment admin-prod --type=LoadBalancer --port=8081 \
+                                                --target-port=80 --name=pl-admin-prod-svc
+          '''
+        } 
       }
     }
   }
