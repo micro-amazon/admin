@@ -50,9 +50,9 @@ pipeline {
             chmod +x kubectl
             mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin
             echo 'export PATH=$PATH:$HOME/bin' >> ~/.bashrc
-            kubectl create deployment admin --image=zwan2/micro-amazon-admin
-            kubectl expose deployment admin --type=ClusterIP --port=8081 \
-                                                  --target-port=80 --name=pl-admin-svc
+
+            kubectl apply -f https://raw.githubusercontent.com/micro-amazon/micro-amazon/master/deploy/kubernetes/manifests/29-admin-dep.yaml
+            kubectl apply -f https://raw.githubusercontent.com/micro-amazon/micro-amazon/master/deploy/kubernetes/manifests/30-admin-svc.yaml
           '''
         } 
       }
