@@ -6,4 +6,5 @@ import weaveworksdemos.admin.entities.Admin;
 
 @RepositoryRestResource
 public interface AdminRepository extends MongoRepository<Admin, Integer> {
+    boolean existsByUsernameAndPassword(String username, String password);
 }

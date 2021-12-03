@@ -24,6 +24,8 @@ dependencies {
 	implementation "io.prometheus:simpleclient_hotspot:${prometheusVersion}"
 	implementation "io.prometheus:simpleclient_servlet:${prometheusVersion}"
 	implementation 'org.springframework.data:spring-data-rest-hal-browser:3.3.9.RELEASE'
+	implementation 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:1.50.5'
 	testImplementation 'com.openpojo:openpojo:0.8.4'

@@ -12,6 +12,8 @@ import weaveworksdemos.admin.services.AdminService;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -32,9 +34,10 @@ class AdminControllerTest {
         String password = "password";
 
         //when
+        when(adminService.isLoginSuccess(username, password)).thenReturn(true);
+
         //then
-        mockMvc.perform(MockMvcRequestBuilders
-                    .post("/login")
+        mockMvc.perform(post("/login")
                         .param("username", username)
                         .param("password", password))
                 .andExpect(status().isOk())
@@ -49,9 +52,10 @@ class AdminControllerTest {
         String password = "password";
 
         //when
+        when(adminService.isLoginSuccess(username, password)).thenReturn(false);
+
         //then
-        mockMvc.perform(MockMvcRequestBuilders
-                        .post("/login")
+        mockMvc.perform(post("/login")
                         .param("username", username)
                         .param("password", password))
                 .andExpect(status().is4xxClientError())
