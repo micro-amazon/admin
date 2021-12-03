@@ -1,5 +1,10 @@
-FROM openjdk:8-jdk-alpine
-VOLUME /tmp
-ARG JAR_FILE
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+FROM weaveworksdemos/msd-java:jre-latest
+
+WORKDIR /usr/src/app
+COPY *.jar ./app.jar
+
+RUN	chown -R ${SERVICE_USER}:${SERVICE_GROUP} ./app.jar
+
+USER ${SERVICE_USER}
+
+ENTRYPOINT ["/usr/local/bin/java.sh","-jar","./app.jar", "--port=80"]
