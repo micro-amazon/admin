@@ -44,7 +44,7 @@ pipeline {
     }
     stage('deploy kubernetes') {
       steps {
-        withKubeConfig([credentialsId: 'jenkins-robot-token', serverUrl: 'https://192.168.49.2:8443', namespace: 'sock-shop']) {
+        withKubeConfig([credentialsId: 'jenkins-robot-token', serverUrl: 'https://20.42.56.99:8443', namespace: 'sock-shop']) {
           sh '''
             curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.22.3/bin/linux/amd64/kubectl
             chmod +x kubectl
