@@ -46,15 +46,12 @@ pipeline {
       steps {
         withKubeConfig([credentialsId: 'jenkins-robot-token', serverUrl: 'https://20.42.56.99:8443', namespace: 'sock-shop']) {
           sh '''
-            curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.22.3/bin/linux/amd64/kubectl
-            chmod +x kubectl
-            mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin
-            echo 'export PATH=$PATH:$HOME/bin' >> ~/.bashrc
+            snap install kubectl --classic
 
             kubectl apply -f https://raw.githubusercontent.com/micro-amazon/micro-amazon/master/deploy/kubernetes/manifests/29-admin-dep.yaml
             kubectl apply -f https://raw.githubusercontent.com/micro-amazon/micro-amazon/master/deploy/kubernetes/manifests/30-admin-svc.yaml
           '''
-        } 
+        }
       }
     }
   }
