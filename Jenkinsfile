@@ -22,22 +22,16 @@ pipeline {
   }
   environment {
     DOCKER_HUB_AUTH = credentials('DOCKER_HUB_AUTH') // it is set by jenkins credentials
-  }  
+  }
   stages {
     stage('git scm update') {
       steps {
-        container('docker') {
           git url: 'https://github.com/micro-amazon/admin.git', branch: 'main'
-        }
       }
     }
     stage('gradle build') {
       steps {
-        container('docker') {
-          sh '''
-          ./gradlew clean build
-          '''
-        }
+          sh './gradlew clean build'
       }
     }
     stage('docker build and push') {
