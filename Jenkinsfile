@@ -34,6 +34,11 @@ pipeline {
     stage('docker build and push') {
       steps {
         container('docker') {
+            sh '''
+            ./gradlew clean build
+            '''
+        }
+        container('docker') {
           sh '''
           docker login -u ${DOCKER_HUB_AUTH_USR} -p ${DOCKER_HUB_AUTH_PSW}
           docker build -t zwan2/micro-amazon-admin .
