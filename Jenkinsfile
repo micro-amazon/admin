@@ -32,12 +32,13 @@ pipeline {
       }
     }
     stage('gradle build') {
-     steps {
-         container('docker') {
-            sh '''
-            ./gradlew clean build
-            '''
-         }
+      steps {
+        container('docker') {
+          sh '''
+          ./gradlew clean build
+          '''
+        }
+      }
     }
     stage('docker build and push') {
       steps {
