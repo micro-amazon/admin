@@ -15,6 +15,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(AdminController.class)
@@ -59,6 +60,25 @@ class AdminControllerTest {
                         .param("username", username)
                         .param("password", password))
                 .andExpect(status().is4xxClientError())
+                .andDo(print());
+    }
+
+    @Test
+    @DisplayName("관리자 계정 정상 등록")
+    void registerSuccess() throws Exception {
+        //given
+        Long id = 1L;
+        String username = "newadmin";
+        String password = "password";
+
+        //when
+        when(adminService.saveAdmin(username, password)).thenReturn(1L);
+
+        mockMvc.perform(post("/register")
+                .param("username", username)
+                .param("password", password))
+                .andExpect(content().string("1"))
+                .andExpect(status().isOk())
                 .andDo(print());
     }
 }
