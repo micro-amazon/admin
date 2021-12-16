@@ -11,7 +11,6 @@ import weaveworksdemos.admin.services.AdminService;
 
 @Slf4j
 @RestController
-@RequestMapping("/admin")
 public class AdminController {
 
     @Autowired
