@@ -14,7 +14,7 @@ import weaveworksdemos.admin.services.AdminService;
 public class AdminController {
 
     @Autowired
-    AdminService adminService;
+    private AdminService adminService;
 
     @PostMapping("/login")
     public ResponseEntity login(String username, String password) {

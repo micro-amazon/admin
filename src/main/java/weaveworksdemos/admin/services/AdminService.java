@@ -8,7 +8,7 @@ import weaveworksdemos.admin.repositories.AdminRepository;
 public class AdminService {
 
     @Autowired
-    AdminRepository adminRepository;
+    private AdminRepository adminRepository;
 
     public boolean isLoginSuccess(String username, String password) {
         // temporary workaround
