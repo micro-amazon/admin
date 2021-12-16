@@ -37,7 +37,7 @@ class AdminControllerTest {
         when(adminService.isLoginSuccess(username, password)).thenReturn(true);
 
         //then
-        mockMvc.perform(post("/login")
+        mockMvc.perform(post("/admin/login")
                         .param("username", username)
                         .param("password", password))
                 .andExpect(status().isOk())
@@ -55,7 +55,7 @@ class AdminControllerTest {
         when(adminService.isLoginSuccess(username, password)).thenReturn(false);
 
         //then
-        mockMvc.perform(post("/login")
+        mockMvc.perform(post("/admin/login")
                         .param("username", username)
                         .param("password", password))
                 .andExpect(status().is4xxClientError())
