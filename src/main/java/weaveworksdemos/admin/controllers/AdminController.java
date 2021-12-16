@@ -30,4 +30,11 @@ public class AdminController {
             return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
     }
+
+    @PostMapping("/register")
+    public ResponseEntity register(String username, String password) {
+        Long adminId = adminService.saveAdmin(username, password);
+        return new ResponseEntity(adminId, HttpStatus.OK);
+    }
+
 }
