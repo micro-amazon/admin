@@ -58,6 +58,7 @@ pipeline {
             kubectl apply -f https://raw.githubusercontent.com/micro-amazon/micro-amazon/master/deploy/kubernetes/manifests/30-admin-svc.yaml
             kubectl apply -f https://raw.githubusercontent.com/micro-amazon/micro-amazon/master/deploy/kubernetes/manifests/31-admin-db-dep.yaml
             kubectl apply -f https://raw.githubusercontent.com/micro-amazon/micro-amazon/master/deploy/kubernetes/manifests/32-admin-db-svc.yaml
+            kubectl apply -f https://raw.githubusercontent.com/micro-amazon/micro-amazon/master/deploy/kubernetes/autoscaling/admin-hsc.yml
 
             kubectl rollout restart deployment admin -n sock-shop
           '''
