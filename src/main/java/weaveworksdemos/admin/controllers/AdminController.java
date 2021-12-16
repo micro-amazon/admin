@@ -18,6 +18,9 @@ public class AdminController {
 
     @PostMapping("/login")
     public ResponseEntity login(String username, String password) {
+        log.info(username);
+        log.info(password);
+
         Boolean isLoginSuccess = adminService.isLoginSuccess(username, password);
         if(isLoginSuccess) {
             log.info("login success");
