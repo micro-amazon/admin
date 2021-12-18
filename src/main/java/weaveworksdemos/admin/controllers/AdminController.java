@@ -33,7 +33,7 @@ public class AdminController {
 
     @PostMapping("/register")
     public ResponseEntity register(String username, String password) {
-        Long adminId = adminService.saveAdmin(username, password);
+        String adminId = adminService.saveAdmin(username, password);
         return new ResponseEntity(adminId, HttpStatus.OK);
     }
 

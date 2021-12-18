@@ -5,12 +5,14 @@ import lombok.Getter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.math.BigInteger;
+
 @Document
 @Builder
 @Getter
 public class Admin {
     @Id
-    private Long id;
+    private String id;
 
     private String username;
     private String password;

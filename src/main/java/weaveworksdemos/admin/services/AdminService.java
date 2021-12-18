@@ -17,7 +17,7 @@ public class AdminService {
         return adminRepository.existsByUsernameAndPassword(username, password);
     }
 
-    public Long saveAdmin(String username, String password) {
+    public String saveAdmin(String username, String password) {
         Admin admin = Admin.builder()
                 .username(username)
                 .password(password)

@@ -72,7 +72,7 @@ class AdminControllerTest {
         String password = "password";
 
         //when
-        when(adminService.saveAdmin(username, password)).thenReturn(1L);
+        when(adminService.saveAdmin(username, password)).thenReturn("1");
 
         mockMvc.perform(post("/register")
                 .param("username", username)
